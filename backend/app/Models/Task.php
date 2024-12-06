@@ -15,9 +15,10 @@ class Task extends Model
     public function project() {
         return $this->belongsTo(Project::class);
     }
-    // Task can have multiple assignments 
+
+    // Task can only be assigned to 1 Person
     public function person() {
-        return $this->hasMany(Assignment::class);
+        return $this->belongsTo(Person::class);
     }
 
 
