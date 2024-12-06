@@ -10,7 +10,8 @@ class Person extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
-
+    
+    // Each Person can have many tasks 
     public function tasks() {
 
         return $this->hasMany(Task::class);
