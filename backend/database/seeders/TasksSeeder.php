@@ -13,7 +13,8 @@ class TasksSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void{
+    public function run(): void 
+    {
         
         $people = Person::all()->pluck('id', 'name')->toArray();
         $projects = Project::all()->pluck('id', 'name')->toArray();
@@ -35,10 +36,8 @@ class TasksSeeder extends Seeder
                     'name' => 'Test',
                     'estimated_hours' => 10,
                 ], 
-
-
             ],
-
+            
             'Websocket Updates' => [
                 [
                     'person_name' => 'Stuart',
@@ -55,9 +54,8 @@ class TasksSeeder extends Seeder
                     'name' => 'Adjust Interface',
                     'estimated_hours' => 3,
                 ], 
-
-
             ],
+
             'E-Commerce Website' => [
                 [
                     'person_name' => 'Adam',
@@ -74,10 +72,7 @@ class TasksSeeder extends Seeder
                     'name' => 'My Account',
                     'estimated_hours' => 5,
                 ], 
-
-
             ],
-
         ];
 
         foreach($tasks as $project_name => $project_tasks) {

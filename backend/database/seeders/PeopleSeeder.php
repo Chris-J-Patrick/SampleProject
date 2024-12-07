@@ -11,7 +11,7 @@ class PeopleSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run(): void 
     {
         $people = ['Stuart', 'Tyler', 'Adam', 'Lan'];
 
