@@ -16,7 +16,7 @@ class ProjectController extends Controller
 
             return [
                 'project_name' => $project->name,
-                'members' => $members->join(', '),
+                'members' => $members,
                 'estimated_hours' => $totalHours,
                 'id' => $project->id
             ];
@@ -42,7 +42,7 @@ class ProjectController extends Controller
         return response()->json([
             'project_name' => $project->name,
             'total_hours' => $totalHours,
-            'members' => $members->join(', ',),
+            'members' => $members,
             'tasks' => $taskData
         ]);
 
