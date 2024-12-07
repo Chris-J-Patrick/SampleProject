@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 1em;
+}
+h1 {
+  margin-bottom: 0;
+}
+
+.total-hours {
+  text-align: right;
+  margin: 0;
+  font-size: larger;
+}
