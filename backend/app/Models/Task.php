@@ -11,12 +11,12 @@ class Task extends Model
 
     protected $fillable = ['project_id', 'person_id', 'name', 'estimated_hours'];
 
-    // Task belongs to a project (Project has many tasks)
+    // Task belongs to a single Project 
     public function project() {
         return $this->belongsTo(Project::class);
     }
 
-    // Task can only be assigned to 1 Person (Person has many Tasks)
+    // Task belongs to a single Person
     public function person() {
         return $this->belongsTo(Person::class);
     }
