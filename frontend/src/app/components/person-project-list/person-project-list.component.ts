@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { PersonService } from '../../services/person.service';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { PersonService } from "../../services/person.service";
+import { CommonModule } from "@angular/common";
+import { MatTableModule } from "@angular/material/table";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatButtonModule } from "@angular/material/button";
+import { RouterLink } from "@angular/router";
 @Component({
-  selector: 'app-person-project-list',
+  selector: "app-person-project-list",
   imports: [
     CommonModule,
     MatTableModule,
@@ -15,14 +15,14 @@ import { RouterLink } from '@angular/router';
     MatButtonModule,
     RouterLink,
   ],
-  templateUrl: './person-project-list.component.html',
-  styleUrl: './person-project-list.component.css',
+  templateUrl: "./person-project-list.component.html",
+  styleUrl: "./person-project-list.component.css",
 })
 export class PersonProjectListComponent implements OnInit {
-  personName: string = '';
+  personName: string = "";
   projects: any[] = [];
   isLoading: boolean = true;
-  displayedColumns: string[] = ['projectName', 'members', 'hours', 'actions'];
+  displayedColumns: string[] = ["projectName", "members", "hours", "actions"];
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +30,7 @@ export class PersonProjectListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.personName = this.route.snapshot.params['name'];
+    this.personName = this.route.snapshot.params["name"];
 
     this.personService.getProjectsByPersonName(this.personName).subscribe({
       next: (data) => {
@@ -38,7 +38,7 @@ export class PersonProjectListComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Error Fetching Projects for person:', this.personName);
+        console.error("Error Fetching Projects for person:", this.personName);
       },
     });
   }

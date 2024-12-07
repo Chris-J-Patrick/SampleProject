@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class PersonService {
-  private API_URL = 'http://localhost:8000/api/people';
+  private API_URL = "http://localhost:8000/api/people";
 
   constructor(private http: HttpClient) {}
 

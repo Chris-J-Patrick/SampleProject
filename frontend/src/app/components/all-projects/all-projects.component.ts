@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../services/project.service';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
-import { TeamMembersTableComponent } from '../team-members-table/team-members-table.component';
+import { Component, OnInit } from "@angular/core";
+import { ProjectService } from "../../services/project.service";
+import { CommonModule } from "@angular/common";
+import { MatTableModule } from "@angular/material/table";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatButtonModule } from "@angular/material/button";
+import { RouterLink } from "@angular/router";
+import { TeamMembersTableComponent } from "../team-members-table/team-members-table.component";
 @Component({
-  selector: 'app-all-projects',
+  selector: "app-all-projects",
   imports: [
     CommonModule,
     MatTableModule,
@@ -16,13 +16,13 @@ import { TeamMembersTableComponent } from '../team-members-table/team-members-ta
     RouterLink,
     TeamMembersTableComponent,
   ],
-  templateUrl: './all-projects.component.html',
-  styleUrl: './all-projects.component.css',
+  templateUrl: "./all-projects.component.html",
+  styleUrl: "./all-projects.component.css",
 })
 export class AllProjectsComponent implements OnInit {
   projects: any[] = [];
   isLoading: boolean = true;
-  displayedColumns: string[] = ['name', 'members', 'hours', 'actions'];
+  displayedColumns: string[] = ["name", "members", "hours", "actions"];
 
   constructor(private projectService: ProjectService) {}
 
@@ -33,7 +33,7 @@ export class AllProjectsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Error fetching projects', err);
+        console.error("Error fetching projects", err);
         this.isLoading = false;
       },
     });
