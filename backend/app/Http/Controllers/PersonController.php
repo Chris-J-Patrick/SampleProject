@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Models\Person;
 
 class PersonController extends Controller{
-    // Returns all projects using a Person's name
+
+    // Returns all team members 
+    public function index() {
+        $teamMembers = Person::all()->pluck('name');
+        return response()->json($teamMembers);
+    }
+
+    // Returns all Projects belonging to a Person, using a Person's name
     public function projects($name){
 
         $query = Project::with('tasks.person');
@@ -20,7 +28,7 @@ class PersonController extends Controller{
 
             return [
                 'project_name' => $project->name,
-                'members' => $members->join(', '), 
+                'members' => $members,
                 'estimated_hours' => $totalHours, 
                 'id' => $project->id
             ];
