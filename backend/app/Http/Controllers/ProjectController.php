@@ -11,7 +11,9 @@ class ProjectController extends Controller
     public function index() 
     {
         $projects = Project::with('tasks.person')->get()->map(function ($project) {
-            $members = $project->tasks->pluck('person.name')->unique()->values();
+            $members = $project->tasks->pluck('person.name')->unique()->values()->map(function ($member) {
+                return ['name' => $member];
+            } );
             $totalHours = $project->tasks->sum('estimated_hours');
             return [
                 'project_name' => $project->name,
@@ -27,7 +29,11 @@ class ProjectController extends Controller
     {
         $project = Project::with('tasks.person')->findOrFail($id);
         $totalHours = $project->tasks->sum('estimated_hours');
-        $members = $project->tasks->pluck('person.name')->unique()->values();
+        $members = $project->tasks->pluck('person.name')->unique()->values()->map(function ($person){
+            return [
+                'name' => $person,
+            ];
+        });
 
         $taskData = $project->tasks->map(function($task) {
             return [
