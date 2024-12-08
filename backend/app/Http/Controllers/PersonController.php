@@ -11,7 +11,9 @@ class PersonController extends Controller
 
     // Returns all team members 
     public function index() {
-        $teamMembers = Person::all()->pluck('name');
+        $teamMembers = Person::all()->pluck('name')->map(function ($name){
+            return ['name' => $name];
+        });
         return response()->json($teamMembers);
     }
 
@@ -26,7 +28,9 @@ class PersonController extends Controller
         });
 
         $projects = $query->get()->map(function ($project) use ($name) {
-            $members = $project->tasks->pluck('person.name')->unique()->values();
+            $members = $project->tasks->pluck('person.name')->unique()->values()->map(function($member) {
+                return ['name' => $member];
+            });
             $totalHours = $project->tasks->sum('estimated_hours');
             return [
                 'project_name' => $project->name,
