@@ -1,13 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { ProjectService } from "../../services/project.service";
-import { CommonModule } from "@angular/common";
-import { MatTableModule } from "@angular/material/table";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { MatButtonModule } from "@angular/material/button";
-import { RouterLink } from "@angular/router";
-import { TeamMembersTableComponent } from "../team-members-table/team-members-table.component";
+import { Component, OnInit } from '@angular/core';
+import { ProjectService } from '../../services/project.service';
+import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { TeamMembersTableComponent } from '../team-members-table/team-members-table.component';
+import { TableComponent } from '../table/table.component';
+import { Project, TableColumn } from '../../interfaces/interfaces';
 @Component({
-  selector: "app-all-projects",
+  selector: 'app-all-projects',
   imports: [
     CommonModule,
     MatTableModule,
@@ -15,14 +17,25 @@ import { TeamMembersTableComponent } from "../team-members-table/team-members-ta
     MatButtonModule,
     RouterLink,
     TeamMembersTableComponent,
+    TableComponent,
   ],
-  templateUrl: "./all-projects.component.html",
-  styleUrl: "./all-projects.component.css",
+  templateUrl: './all-projects.component.html',
+  styleUrl: './all-projects.component.css',
 })
 export class AllProjectsComponent implements OnInit {
-  projects: any[] = [];
+  projects: Project[] = [];
   isLoading: boolean = true;
-  displayedColumns: string[] = ["name", "members", "hours", "actions"];
+  displayedColumns: TableColumn<Project>[] = [
+    { field: 'project_name', header: 'Project Name' },
+    {
+      field: 'members',
+      header: 'Members',
+      valueAccessor: (row: Project) =>
+        row.members.map((member) => member.name).join(', '),
+    },
+    { field: 'estimated_hours', header: 'Estimated Hours' },
+    { field: 'actions', header: 'Actions' },
+  ];
 
   constructor(private projectService: ProjectService) {}
 
@@ -33,7 +46,7 @@ export class AllProjectsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        console.error("Error fetching projects", err);
+        console.error('Error fetching projects', err);
         this.isLoading = false;
       },
     });

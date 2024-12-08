@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { TableComponent } from '../table/table.component';
+import { Project, TableColumn, Task } from '../../interfaces/interfaces';
 @Component({
   selector: 'app-project-summary',
   imports: [
@@ -13,14 +15,19 @@ import { MatButtonModule } from '@angular/material/button';
     MatProgressSpinnerModule,
     MatButtonModule,
     RouterLink,
+    TableComponent,
   ],
   templateUrl: './project-summary.component.html',
   styleUrl: './project-summary.component.css',
 })
 export class ProjectSummaryComponent implements OnInit {
-  project: any;
+  project: Project | null = null;
   isLoading: boolean = true;
-  displayedColumns: string[] = ['taskName', 'assignedTo', 'estimatedHours'];
+  displayedColumns: TableColumn<Task>[] = [
+    { field: 'task_name', header: 'Task' },
+    { field: 'assigned_to', header: 'Assigned to' },
+    { field: 'estimated_hours', header: 'Estimated Hours' },
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,7 +38,7 @@ export class ProjectSummaryComponent implements OnInit {
     const projectId = this.route.snapshot.params['id'];
     this.projectService.getProjectById(projectId).subscribe({
       next: (data) => {
-        this.project = data;
+        this.project = { ...data, tasks: data.tasks ?? [] };
         this.isLoading = false;
       },
       error: (err) => {
@@ -39,5 +46,8 @@ export class ProjectSummaryComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+  get memberNames(): string {
+    return this.project?.members?.map((member) => member.name).join(', ') || '';
   }
 }
