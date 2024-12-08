@@ -1,47 +1,21 @@
 <div class="component-container">
   <h1>All Projects</h1>
 
-  <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="50">
-  </mat-progress-spinner>
-
-  <table
-    *ngIf="!isLoading"
-    mat-table
-    [dataSource]="projects"
-    class="mat-elevation-z8"
+  <app-table
+    [data]="projects"
+    [displayedColumns]="displayedColumns"
+    [isLoading]="isLoading"
   >
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Project Name</th>
-      <td mat-cell *matCellDef="let project">{{ project.project_name }}</td>
-    </ng-container>
+    <ng-template #actions let-project
+      ><button
+        mat-button
+        color="primary"
+        [routerLink]="['/projects', project.id]"
+      >
+        View Project
+      </button></ng-template
+    >
+  </app-table>
 
-    <ng-container matColumnDef="members">
-      <th mat-header-cell *matHeaderCellDef>Members</th>
-      <td mat-cell *matCellDef="let project">
-        {{ project.members.join(", ") }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="hours">
-      <th mat-header-cell *matHeaderCellDef>Estimated Hours</th>
-      <td mat-cell *matCellDef="let project">{{ project.estimated_hours }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let project">
-        <button
-          mat-button
-          color="primary"
-          [routerLink]="['/projects', project.id]"
-        >
-          View Project
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
   <app-team-members-table></app-team-members-table>
 </div>

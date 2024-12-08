@@ -1,30 +1,14 @@
 <div>
   <h1>All Team Members</h1>
-
-  <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="50">
-  </mat-progress-spinner>
-
-  <table
-    *ngIf="!isLoading"
-    mat-table
-    [dataSource]="teamMembers"
-    class="mat-elevation-z8"
+  <app-table
+    [data]="teamMembers"
+    [displayedColumns]="displayedColumns"
+    [isLoading]="isLoading"
   >
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let member">{{ member }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let member">
-        <button mat-button [routerLink]="['/people', member, 'projects']">
-          View Projects
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+    <ng-template #actions let-row>
+      <button mat-button [routerLink]="['/people', row.name, 'projects']">
+        View Projects
+      </button>
+    </ng-template>
+  </app-table>
 </div>

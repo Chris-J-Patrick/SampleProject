@@ -1,30 +1,13 @@
 <div class="component-container">
-  <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="50">
-  </mat-progress-spinner>
-  <div *ngIf="!isLoading">
-    <div class="header">
-      <h1>{{ project?.project_name }}</h1>
-      <p class="total-hours">{{ project?.total_hours }} hours</p>
-    </div>
-
-    <table mat-table [dataSource]="project?.tasks" class="mat-elevation-z8">
-      <ng-container matColumnDef="taskName">
-        <th mat-header-cell *matHeaderCellDef>Task</th>
-        <td mat-cell *matCellDef="let task">{{ task.task_name }}</td>
-      </ng-container>
-      <ng-container matColumnDef="assignedTo">
-        <th mat-header-cell *matHeaderCellDef>Assigned To</th>
-        <td mat-cell *matCellDef="let task">{{ task.assigned_to }}</td>
-      </ng-container>
-      <ng-container matColumnDef="estimatedHours">
-        <th mat-header-cell *matHeaderCellDef>Estimated Hours</th>
-        <td mat-cell *matCellDef="let task">{{ task.estimated_hours }}</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-    <p>Members: {{ project.members.join(", ") }}</p>
-    <button mat-button routerLink="/projects">Back to All Projects</button>
+  <div class="header">
+    <h1>{{ project?.project_name }}</h1>
+    <p class="total-hours">{{ project?.total_hours }} hours</p>
   </div>
+  <app-table
+    [data]="project?.tasks ?? []"
+    [displayedColumns]="displayedColumns"
+    [isLoading]="isLoading"
+  ></app-table>
+  <p *ngIf="project?.members">Members: {{ memberNames }}</p>
+  <button mat-button routerLink="/projects">Back to All Projects</button>
 </div>
