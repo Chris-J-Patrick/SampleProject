@@ -2,20 +2,19 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Person;
 use App\Models\Project;
 use App\Models\Task;
+use Illuminate\Database\Seeder;
 
 class TasksSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void 
+    public function run(): void
     {
-        
+
         $people = Person::all()->pluck('id', 'name')->toArray();
         $projects = Project::all()->pluck('id', 'name')->toArray();
 
@@ -30,14 +29,14 @@ class TasksSeeder extends Seeder
                     'person_name' => 'Stuart',
                     'name' => 'Fix Broken Things',
                     'estimated_hours' => 10,
-                ], 
+                ],
                 [
                     'person_name' => 'Lan',
                     'name' => 'Test',
                     'estimated_hours' => 10,
-                ], 
+                ],
             ],
-            
+
             'Websocket Updates' => [
                 [
                     'person_name' => 'Stuart',
@@ -48,12 +47,12 @@ class TasksSeeder extends Seeder
                     'person_name' => 'Stuart',
                     'name' => 'Enable Broadcasting',
                     'estimated_hours' => 5,
-                ], 
+                ],
                 [
                     'person_name' => 'Stuart',
                     'name' => 'Adjust Interface',
                     'estimated_hours' => 3,
-                ], 
+                ],
             ],
 
             'E-Commerce Website' => [
@@ -66,16 +65,16 @@ class TasksSeeder extends Seeder
                     'person_name' => 'Tyler',
                     'name' => 'Shopping Cart',
                     'estimated_hours' => 10,
-                ], 
+                ],
                 [
                     'person_name' => 'Adam',
                     'name' => 'My Account',
                     'estimated_hours' => 5,
-                ], 
+                ],
             ],
         ];
 
-        foreach($tasks as $project_name => $project_tasks) {
+        foreach ($tasks as $project_name => $project_tasks) {
             $project_id = $projects[$project_name];
 
             foreach ($project_tasks as $task) {

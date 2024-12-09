@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
-use Illuminate\Http\Request;
 use App\Models\Person;
+use App\Models\Project;
 
-class PersonController extends Controller 
+class PersonController extends Controller
 {
-    // Returns all team members 
-    public function index() {
+    // Returns all team members
+    public function index()
+    {
         try {
             $teamMembers = Person::all()->pluck('name')->map(function ($name) {
                 return ['name' => $name];
-        });
+            });
 
-        return response()->json($teamMembers);
+            return response()->json($teamMembers);
 
         } catch (Exception $e) {
             return response()->json(['error' => 'Failed to get all team members'], 500);
@@ -23,7 +23,8 @@ class PersonController extends Controller
     }
 
     // Returns all Projects belonging to a Person, using a Person's name
-    public function projects($name) {
+    public function projects($name)
+    {
         try {
             $query = Project::with('tasks.person');
 
@@ -32,7 +33,7 @@ class PersonController extends Controller
             });
 
             $projects = $query->get()->map(function ($project) use ($name) {
-                $members = $project->tasks->pluck('person.name')->unique()->values()->map(function($member) {
+                $members = $project->tasks->pluck('person.name')->unique()->values()->map(function ($member) {
                     return ['name' => $member];
                 });
                 $totalHours = $project->tasks->sum('estimated_hours');
@@ -40,8 +41,8 @@ class PersonController extends Controller
                 return [
                     'project_name' => $project->name,
                     'members' => $members,
-                    'estimated_hours' => $totalHours, 
-                    'id' => $project->id
+                    'estimated_hours' => $totalHours,
+                    'id' => $project->id,
                 ];
             });
 

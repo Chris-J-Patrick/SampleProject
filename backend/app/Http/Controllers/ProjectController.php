@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -20,19 +19,19 @@ class ProjectController extends Controller
                     'project_name' => $project->name,
                     'members' => $members,
                     'estimated_hours' => $totalHours,
-                    'id' => $project->id
+                    'id' => $project->id,
                 ];
             });
 
             return response()->json($projects);
-            
+
         } catch (Exception $e) {
             return response()->json(['error' => "Failed to fetch Projects"], 500);
         }
     }
 
     public function show($id)
-    {   
+    {
         try {
             $project = Project::with('tasks.person')->findOrFail($id);
             $totalHours = $project->tasks->sum('estimated_hours');
@@ -46,18 +45,18 @@ class ProjectController extends Controller
                 return [
                     'task_name' => $task->name,
                     'assigned_to' => $task->person->name,
-                    'estimated_hours' => $task->estimated_hours
+                    'estimated_hours' => $task->estimated_hours,
                 ];
             });
-            
+
             return response()->json([
                 'project_name' => $project->name,
                 'total_hours' => $totalHours,
                 'members' => $members,
-                'tasks' => $taskData
+                'tasks' => $taskData,
             ]);
 
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['error' => 'Failed to fetch project by ID'], 500);
         }
     }
