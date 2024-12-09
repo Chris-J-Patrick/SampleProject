@@ -6,13 +6,25 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
 mat-progress-spinner {
   display: block;
   margin: 1em auto;
 }
-
 .component-container {
   padding: 1em;
   margin-bottom: 2em;
+}
+.mat-column-projectName {
+  width: 30%;
+}
+.mat-column-members {
+  width: 20%;
+}
+.mat-column-estimated_hours {
+  width: 25%;
+  text-align: center;
+}
+.mat-column-actions {
+  width: 25%;
+  text-align: center;
 }
