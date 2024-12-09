@@ -23,10 +23,12 @@
           *ngTemplateOutlet="actionsTemplate; context: { $implicit: element }"
         ></ng-container>
       </ng-container>
+
       <ng-template #othercells>
         <ng-container *ngIf="column.valueAccessor; else defaultCell">
           {{ column.valueAccessor(element) }}
         </ng-container>
+
         <ng-template #defaultCell>{{
           element[column.field]
         }}</ng-template></ng-template
