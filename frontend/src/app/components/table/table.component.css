@@ -1,0 +1,14 @@
+.mat-column-projectName {
+  width: 30%;
+}
+.mat-column-members {
+  width: 20%;
+}
+.mat-column-estimated_hours {
+  width: 25%;
+  text-align: center;
+}
+.mat-column-actions {
+  width: 25%;
+  text-align: center;
+}
